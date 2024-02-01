@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">The News</string>
+    <string name="titleApp">The News</string>
+    <string name="titleNew">News</string>
 </resources>
