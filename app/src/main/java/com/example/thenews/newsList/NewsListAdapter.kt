@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.thenews.databinding.ItemNewBinding
 import com.example.thenews.model.presentation.New
 import com.example.thenews.newsList.NewsListAdapter.NewsVH
@@ -15,6 +16,7 @@ class NewsListAdapter() : ListAdapter<New, NewsVH>(Differ) {
 
         fun bind(new: New) {
             binding.titleNew.text = new.title
+            Glide.with(binding.imageNew).load(new.image).into(binding.imageNew)
         }
     }
 

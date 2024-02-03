@@ -7,7 +7,7 @@
 
     <Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,6 +26,36 @@
         app:layout_constraintStart_toStartOf="@id/toolbar"
         app:layout_constraintTop_toTopOf="@id/toolbar" />
 
+    <EditText
+        android:id="@+id/searchNews"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Поиск"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <ImageView
+        android:id="@+id/buttonSearchNews"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:src="@drawable/search_button"
+        app:layout_constraintBottom_toBottomOf="@id/searchNews"
+        app:layout_constraintEnd_toEndOf="@id/searchNews"
+        app:layout_constraintTop_toTopOf="@id/searchNews" />
+
+    <TextView
+        android:id="@+id/errorEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/error"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchNews"
+        tools:text="Введите запрос" />
+
     <ProgressBar
         android:id="@+id/isLoadingView"
         android:layout_width="wrap_content"
@@ -37,13 +67,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerNewsList"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toBottomOf="@id/errorEmpty"
         tools:listitem="@layout/item_new" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

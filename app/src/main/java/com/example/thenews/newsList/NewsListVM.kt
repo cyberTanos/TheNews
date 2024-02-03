@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.thenews.domain.NewsListRepository
 import com.example.thenews.newsList.NewsListAction.InitScreen
+import com.example.thenews.newsList.NewsListAction.SearchNews
 import com.example.thenews.newsList.NewsListState.Loading
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -19,14 +20,19 @@ class NewsListVM @Inject constructor(
 
     fun doAction(action: NewsListAction) {
         when (action) {
-            is InitScreen -> fetchNewsList()
+            is InitScreen -> fetchNewsList(query = "Кино")
+            is SearchNews -> fetchNewsList(action.searchQuery)
         }
     }
 
-    private fun fetchNewsList() {
+    private fun fetchNewsList(query: String) {
         viewModelScope.launch {
-            val news = repository.getNews()
-            state.value = NewsListState.Success(news)
+            try {
+                val news = repository.getNews(query)
+                state.value = NewsListState.Success(news)
+            } catch (e: Exception) {
+                state.value = NewsListState.Error("Введите запрос")
+            }
         }
     }
 }
