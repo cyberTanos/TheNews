@@ -1,4 +1,4 @@
-package com.example.thenews.newsList
+package com.example.thenews.news.newsList
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,11 +12,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.thenews.R
 import com.example.thenews.databinding.FragmentNewsListBinding
-import com.example.thenews.newsList.NewsListAction.InitScreen
-import com.example.thenews.newsList.NewsListAction.SearchNews
-import com.example.thenews.newsList.NewsListState.Error
-import com.example.thenews.newsList.NewsListState.Loading
-import com.example.thenews.newsList.NewsListState.Success
+import com.example.thenews.news.newsList.NewsListAction.InitScreen
+import com.example.thenews.news.newsList.NewsListAction.SearchNews
+import com.example.thenews.news.newsList.NewsListState.Error
+import com.example.thenews.news.newsList.NewsListState.Loading
+import com.example.thenews.news.newsList.NewsListState.Success
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -41,6 +41,7 @@ class NewsListFragment : Fragment(R.layout.fragment_news_list) {
         binding.buttonSearchNews.setOnClickListener {
             vm.doAction(SearchNews(binding.searchNews.text.toString()))
         }
+        binding
     }
 
     private fun observeState() {

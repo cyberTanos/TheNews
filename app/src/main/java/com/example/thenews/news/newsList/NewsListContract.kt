@@ -1,4 +1,4 @@
-package com.example.thenews.newsList
+package com.example.thenews.news.newsList
 
 import com.example.thenews.model.presentation.New
 
@@ -7,6 +7,10 @@ interface NewsListAction {
     data class SearchNews(
         val searchQuery: String
     ) : NewsListAction
+
+    data class OnClickFavourite(
+        val favouriteNew: New
+    )
 }
 
 interface NewsListState {

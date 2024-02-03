@@ -1,4 +1,4 @@
-package com.example.thenews.newsList
+package com.example.thenews.news.favourite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.thenews.databinding.ItemNewBinding
 import com.example.thenews.model.presentation.New
-import com.example.thenews.newsList.NewsListAdapter.NewsVH
+import com.example.thenews.news.favourite.FavouriteAdapter.NewsVH
 
-class NewsListAdapter() : ListAdapter<New, NewsVH>(Differ) {
+class FavouriteAdapter() : ListAdapter<New, NewsVH>(Differ) {
 
     class NewsVH(private val binding: ItemNewBinding) : RecyclerView.ViewHolder(binding.root) {
 
