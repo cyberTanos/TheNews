@@ -7,7 +7,18 @@
 
     <fragment
         android:id="@+id/newsListFragment"
-        android:name="com.example.thenews.newsList.NewsListFragment"
+        android:name="com.example.thenews.news.newsList.NewsListFragment"
         android:label="NewsListFragment"
-        tools:layout="@layout/fragment_news_list" />
+        tools:layout="@layout/fragment_news_list">
+
+        <action
+            android:id="@+id/to_favouriteFragment"
+            app:destination="@id/favouriteFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="com.example.thenews.news.favourite.FavouriteFragment"
+        android:label="FavouriteFragment"
+        tools:layout="@layout/fragment_favourite" />
 </navigation>

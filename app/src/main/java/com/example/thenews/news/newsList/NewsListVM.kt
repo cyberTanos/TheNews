@@ -1,11 +1,11 @@
-package com.example.thenews.newsList
+package com.example.thenews.news.newsList
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.thenews.domain.NewsListRepository
-import com.example.thenews.newsList.NewsListAction.InitScreen
-import com.example.thenews.newsList.NewsListAction.SearchNews
-import com.example.thenews.newsList.NewsListState.Loading
+import com.example.thenews.news.newsList.NewsListAction.InitScreen
+import com.example.thenews.news.newsList.NewsListAction.SearchNews
+import com.example.thenews.news.newsList.NewsListState.Loading
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,7 +21,7 @@ class NewsListVM @Inject constructor(
     fun doAction(action: NewsListAction) {
         when (action) {
             is InitScreen -> fetchNewsList(query = "Кино")
-            is SearchNews -> fetchNewsList(action.searchQuery)
+            is SearchNews -> fetchNewsList(query = action.searchQuery)
         }
     }
 

@@ -19,7 +19,7 @@
             android:minHeight="200dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/notFavouriteButton"
+            app:layout_constraintTop_toBottomOf="@id/delete_button"
             tools:background="@color/black" />
 
         <TextView
@@ -34,20 +34,11 @@
             app:layout_constraintTop_toBottomOf="@id/imageNew" />
 
         <ImageView
-            android:id="@+id/notFavouriteButton"
+            android:id="@+id/delete_button"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_margin="6dp"
-            android:src="@drawable/heart"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/favouriteButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="6dp"
-            android:src="@drawable/favourite"
+            android:src="@drawable/delete_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
