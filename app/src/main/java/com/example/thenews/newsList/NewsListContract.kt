@@ -4,6 +4,9 @@ import com.example.thenews.model.presentation.New
 
 interface NewsListAction {
     object InitScreen : NewsListAction
+    data class SearchNews(
+        val searchQuery: String
+    ) : NewsListAction
 }
 
 interface NewsListState {

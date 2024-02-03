@@ -13,6 +13,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.thenews.R
 import com.example.thenews.databinding.FragmentNewsListBinding
 import com.example.thenews.newsList.NewsListAction.InitScreen
+import com.example.thenews.newsList.NewsListAction.SearchNews
+import com.example.thenews.newsList.NewsListState.Error
 import com.example.thenews.newsList.NewsListState.Loading
 import com.example.thenews.newsList.NewsListState.Success
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,6 +38,9 @@ class NewsListFragment : Fragment(R.layout.fragment_news_list) {
 
     private fun bindUI() {
         binding.recyclerNewsList.adapter = adapter
+        binding.buttonSearchNews.setOnClickListener {
+            vm.doAction(SearchNews(binding.searchNews.text.toString()))
+        }
     }
 
     private fun observeState() {
@@ -43,8 +48,12 @@ class NewsListFragment : Fragment(R.layout.fragment_news_list) {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                 vm.state.collect { state ->
                     binding.isLoadingView.isVisible = state is Loading
+                    binding.errorEmpty.isVisible = state is Error
                     if (state is Success) {
                         adapter.submitList(state.newsList)
+                    }
+                    if (state is Error) {
+                        binding.errorEmpty.text = state.errorMessage
                     }
                 }
             }
