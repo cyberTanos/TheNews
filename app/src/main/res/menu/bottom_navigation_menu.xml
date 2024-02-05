@@ -8,6 +8,6 @@
 
     <item
         android:id="@+id/favouriteFragment"
-        android:icon="@drawable/heart"
+        android:icon="@drawable/not_favourite_button"
         android:title="@string/favourite" />
 </menu>

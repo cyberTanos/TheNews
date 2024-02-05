@@ -1,6 +1,6 @@
 package com.example.thenews.di
 
-import com.example.thenews.data.removed.NewsApiService
+import com.example.thenews.data.remoute.NewsApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

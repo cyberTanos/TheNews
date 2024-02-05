@@ -10,7 +10,7 @@ interface NewsListAction {
 
     data class OnClickFavourite(
         val favouriteNew: New
-    )
+    ) : NewsListAction
 }
 
 interface NewsListState {
