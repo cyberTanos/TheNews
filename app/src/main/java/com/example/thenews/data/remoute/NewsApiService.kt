@@ -1,4 +1,4 @@
-package com.example.thenews.data.removed
+package com.example.thenews.data.remoute
 
 import com.example.thenews.model.response.NewsResponse
 import retrofit2.http.GET

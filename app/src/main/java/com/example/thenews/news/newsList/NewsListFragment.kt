@@ -13,6 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.thenews.R
 import com.example.thenews.databinding.FragmentNewsListBinding
 import com.example.thenews.news.newsList.NewsListAction.InitScreen
+import com.example.thenews.news.newsList.NewsListAction.OnClickFavourite
 import com.example.thenews.news.newsList.NewsListAction.SearchNews
 import com.example.thenews.news.newsList.NewsListState.Error
 import com.example.thenews.news.newsList.NewsListState.Loading
@@ -25,7 +26,9 @@ class NewsListFragment : Fragment(R.layout.fragment_news_list) {
 
     private lateinit var binding: FragmentNewsListBinding
     private val vm: NewsListVM by viewModels()
-    private val adapter = NewsListAdapter()
+    private val adapter = NewsListAdapter { new ->
+        vm.doAction(OnClickFavourite(new))
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentNewsListBinding.inflate(inflater, container, false)
@@ -41,7 +44,6 @@ class NewsListFragment : Fragment(R.layout.fragment_news_list) {
         binding.buttonSearchNews.setOnClickListener {
             vm.doAction(SearchNews(binding.searchNews.text.toString()))
         }
-        binding
     }
 
     private fun observeState() {
