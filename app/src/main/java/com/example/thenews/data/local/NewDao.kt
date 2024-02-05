@@ -20,4 +20,7 @@ interface NewDao {
 
     @Query("SELECT * FROM newentity WHERE title LIKE :title LIMIT 1")
     suspend fun findByTitle(title: String): NewEntity
+
+    @Query("SELECT * FROM newentity WHERE isFavourite = 1")
+    suspend fun getFavourites(): List<NewEntity>
 }
