@@ -9,7 +9,8 @@ interface NewsListAction {
     ) : NewsListAction
 
     data class OnClickFavourite(
-        val favouriteNew: New
+        val favouriteNew: New,
+        val searchQuery: String
     ) : NewsListAction
 }
 

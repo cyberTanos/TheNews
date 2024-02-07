@@ -27,7 +27,7 @@ class NewsListFragment : Fragment(R.layout.fragment_news_list) {
     private lateinit var binding: FragmentNewsListBinding
     private val vm: NewsListVM by viewModels()
     private val adapter = NewsListAdapter { new ->
-        vm.doAction(OnClickFavourite(new))
+        vm.doAction(OnClickFavourite(new, binding.searchNews.text.toString()))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -57,6 +57,7 @@ class NewsListFragment : Fragment(R.layout.fragment_news_list) {
                     }
                     if (state is Error) {
                         binding.errorEmpty.text = state.errorMessage
+                        adapter.submitList(emptyList())
                     }
                 }
             }

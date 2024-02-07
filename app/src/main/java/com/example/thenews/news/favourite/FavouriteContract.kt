@@ -4,6 +4,9 @@ import com.example.thenews.model.presentation.New
 
 interface FavouriteAction {
     object InitScreen : FavouriteAction
+    data class OnClickDeleteFavouriteNew(
+        val favNew: New
+    ) : FavouriteAction
 }
 
 interface FavouriteState {
