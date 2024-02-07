@@ -20,19 +20,28 @@ class NewsListVM @Inject constructor(
 ) : ViewModel() {
 
     val state = MutableStateFlow<NewsListState>(Loading)
+    private var search: String = "Кино"
 
     fun doAction(action: NewsListAction) {
         when (action) {
-            is InitScreen -> fetchNewsList(query = "Кино")
-            is SearchNews -> fetchNewsList(query = action.searchQuery)
-            is OnClickFavourite -> addToFavouriteNew(action.favouriteNew)
+            is InitScreen -> fetchNewsList()
+            is SearchNews -> {
+                search = action.searchQuery
+                fetchNewsList()
+            }
+
+            is OnClickFavourite -> {
+                search = action.searchQuery
+                addToFavouriteNew(action.favouriteNew)
+            }
         }
     }
 
-    private fun fetchNewsList(query: String) {
+    private fun fetchNewsList() {
         viewModelScope.launch {
             try {
-                val newsResponse = repository.getNews(query)
+                val checkedQuery = search.ifEmpty { "Кино" }
+                val newsResponse = repository.getNews(checkedQuery)
                 state.value = Success(newsResponse)
             } catch (e: Exception) {
                 state.value = NewsListState.Error(e.message.toString())
@@ -42,7 +51,9 @@ class NewsListVM @Inject constructor(
 
     private fun addToFavouriteNew(newFavourite: New) {
         viewModelScope.launch {
-            val news = repository.addToFavourite(title = newFavourite.title)
+            val checkedQuery = search.ifEmpty { "Кино" }
+            repository.addToFavourite(newFavourite)
+            val news = repository.getNews(checkedQuery)
             state.value = Success(news)
         }
     }

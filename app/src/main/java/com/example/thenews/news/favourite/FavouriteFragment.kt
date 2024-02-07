@@ -13,6 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.thenews.R
 import com.example.thenews.databinding.FragmentFavouriteBinding
 import com.example.thenews.news.favourite.FavouriteAction.InitScreen
+import com.example.thenews.news.favourite.FavouriteAction.OnClickDeleteFavouriteNew
 import com.example.thenews.news.favourite.FavouriteState.Success
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -21,7 +22,9 @@ import kotlinx.coroutines.launch
 class FavouriteFragment : Fragment(R.layout.fragment_favourite) {
     private lateinit var binding: FragmentFavouriteBinding
     private val vm: FavouriteVM by viewModels()
-    private val adapter = FavouriteAdapter()
+    private val adapter = FavouriteAdapter { new ->
+        vm.doAction(OnClickDeleteFavouriteNew(new))
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentFavouriteBinding.inflate(inflater, container, false)

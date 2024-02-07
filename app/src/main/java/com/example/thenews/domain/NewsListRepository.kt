@@ -12,21 +12,22 @@ class NewsListRepository @Inject constructor(
 
     suspend fun getNews(query: String): List<New> {
         val newsResponse = api.getNews(q = query)
-        val newsEntities = Mapper.map(newsResponse)
-        dao.insertAll(*newsEntities.toTypedArray())
         val newsEntity = dao.getAll()
-        return Mapper.map(newsEntity)
+        return Mapper.mapToNews(newsResponse, newsEntity)
     }
 
-    suspend fun addToFavourite(title: String): List<New> {
-        val newEntity = dao.findByTitle(title)
-        val new = newEntity.copy(isFavourite = !newEntity.isFavourite)
-        dao.insertOne(new)
+    suspend fun addToFavourite(new: New): List<New> {
+        dao.insertOne(Mapper.map(new))
         return Mapper.map(dao.getAll())
     }
 
     suspend fun getFavouritesNews(): List<New> {
-        val favouriteEntities = dao.getFavourites()
+        val favouriteEntities = dao.getAll()
         return Mapper.map(favouriteEntities)
+    }
+
+    suspend fun deleteFavNew(favNew: New) {
+        val newEntity = Mapper.map(favNew)
+        dao.deleteFavNew(newEntity)
     }
 }

@@ -6,11 +6,13 @@ import com.example.thenews.model.response.NewsResponse
 
 object Mapper {
 
-    fun map(response: NewsResponse): List<NewEntity> {
-        return response.articles.map {
-            NewEntity(
-                title = it.title,
-                image = it.urlToImage.toString()
+    fun mapToNews(response: NewsResponse, entities: List<NewEntity>): List<New> {
+        return response.articles.map { resp ->
+            val isFavourite = entities.find { it.title == resp.title } != null
+            New(
+                title = resp.title,
+                image = resp.urlToImage.toString(),
+                isFavourite = isFavourite
             )
         }
     }
@@ -23,5 +25,13 @@ object Mapper {
                 isFavourite = it.isFavourite
             )
         }
+    }
+
+    fun map(new: New): NewEntity {
+        return NewEntity(
+            title = new.title,
+            image = new.image,
+            isFavourite = new.isFavourite
+        )
     }
 }
