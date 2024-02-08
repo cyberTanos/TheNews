@@ -3,6 +3,7 @@
     <string name="titleApp">The News</string>
     <string name="titleNew">News</string>
     <string name="titleFavourite">Favourite News</string>
+    <string name="titleContent">Content New</string>
     <string name="home">Главный экран</string>
     <string name="favourite">Избранное</string>
 </resources>

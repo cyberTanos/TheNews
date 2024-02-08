@@ -11,7 +11,8 @@ import com.example.thenews.databinding.ItemNewBinding
 import com.example.thenews.model.presentation.New
 import com.example.thenews.news.newsList.NewsListAdapter.NewsVH
 
-class NewsListAdapter(private val onClickFavourite: (New) -> Unit) : ListAdapter<New, NewsVH>(Differ) {
+class NewsListAdapter(private val onClickNew: (New) -> Unit, private val onClickFavourite: (New) -> Unit) :
+    ListAdapter<New, NewsVH>(Differ) {
 
     inner class NewsVH(private val binding: ItemNewBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -25,6 +26,9 @@ class NewsListAdapter(private val onClickFavourite: (New) -> Unit) : ListAdapter
                     binding.root.context.getDrawable(R.drawable.not_favourite_button)
                 }
             )
+            binding.root.setOnClickListener {
+                onClickNew.invoke(new)
+            }
             binding.favouriteButton.setOnClickListener {
                 onClickFavourite.invoke(new)
             }
