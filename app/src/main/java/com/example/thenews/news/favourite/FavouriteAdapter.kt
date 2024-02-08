@@ -10,13 +10,16 @@ import com.example.thenews.databinding.ItemFavouriteNewBinding
 import com.example.thenews.model.presentation.New
 import com.example.thenews.news.favourite.FavouriteAdapter.NewsVH
 
-class FavouriteAdapter(private val onDelete: (New) -> Unit) : ListAdapter<New, NewsVH>(Differ) {
+class FavouriteAdapter(private val onClickFavNew: (New) -> Unit, private val onDelete: (New) -> Unit) : ListAdapter<New, NewsVH>(Differ) {
 
     inner class NewsVH(private val binding: ItemFavouriteNewBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(new: New) {
             binding.titleNew.text = new.title
             Glide.with(binding.imageNew).load(new.image).into(binding.imageNew)
+            binding.root.setOnClickListener {
+                onClickFavNew.invoke(new)
+            }
             binding.deleteButton.setOnClickListener {
                 onDelete.invoke(new)
             }

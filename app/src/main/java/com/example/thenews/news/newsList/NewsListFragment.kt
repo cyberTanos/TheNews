@@ -4,16 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.thenews.R
 import com.example.thenews.databinding.FragmentNewsListBinding
+import com.example.thenews.news.content.ContentFragment.Companion.NEW_KEY
+import com.example.thenews.news.newsList.NewListEffect.ToNavigateContentScreen
 import com.example.thenews.news.newsList.NewsListAction.InitScreen
 import com.example.thenews.news.newsList.NewsListAction.OnClickFavourite
+import com.example.thenews.news.newsList.NewsListAction.OnClickNew
 import com.example.thenews.news.newsList.NewsListAction.SearchNews
 import com.example.thenews.news.newsList.NewsListState.Error
 import com.example.thenews.news.newsList.NewsListState.Loading
@@ -26,15 +31,22 @@ class NewsListFragment : Fragment(R.layout.fragment_news_list) {
 
     private lateinit var binding: FragmentNewsListBinding
     private val vm: NewsListVM by viewModels()
-    private val adapter = NewsListAdapter { new ->
-        vm.doAction(OnClickFavourite(new, binding.searchNews.text.toString()))
-    }
+    private val adapter = NewsListAdapter(
+        onClickNew = { new ->
+            vm.doAction(OnClickNew(new))
+        },
+        onClickFavourite = { new ->
+            vm.doAction(OnClickFavourite(new, binding.searchNews.text.toString()))
+        }
+    )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentNewsListBinding.inflate(inflater, container, false)
+
         bindUI()
-        vm.doAction(InitScreen)
         observeState()
+        observeEffect()
+        vm.doAction(InitScreen)
 
         return binding.root
     }
@@ -58,6 +70,20 @@ class NewsListFragment : Fragment(R.layout.fragment_news_list) {
                     if (state is Error) {
                         binding.errorEmpty.text = state.errorMessage
                         adapter.submitList(emptyList())
+                    }
+                }
+            }
+        }
+    }
+
+    private fun observeEffect() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+                vm.effect.collect { effect ->
+                    when (effect) {
+                        is ToNavigateContentScreen -> findNavController().navigate(R.id.to_contentFragment,
+                            bundleOf(NEW_KEY to effect.new )
+                        )
                     }
                 }
             }

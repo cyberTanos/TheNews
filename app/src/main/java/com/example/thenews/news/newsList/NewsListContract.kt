@@ -8,6 +8,10 @@ interface NewsListAction {
         val searchQuery: String
     ) : NewsListAction
 
+    data class OnClickNew(
+        val new: New
+    ) : NewsListAction
+
     data class OnClickFavourite(
         val favouriteNew: New,
         val searchQuery: String
@@ -23,4 +27,10 @@ interface NewsListState {
     data class Error(
         val errorMessage: String
     ) : NewsListState
+}
+
+interface NewListEffect {
+    data class ToNavigateContentScreen(
+        val new: New
+    ) : NewListEffect
 }

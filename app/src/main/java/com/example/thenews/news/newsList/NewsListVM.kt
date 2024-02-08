@@ -4,14 +4,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.thenews.domain.NewsListRepository
 import com.example.thenews.model.presentation.New
+import com.example.thenews.news.newsList.NewListEffect.ToNavigateContentScreen
 import com.example.thenews.news.newsList.NewsListAction.InitScreen
 import com.example.thenews.news.newsList.NewsListAction.OnClickFavourite
+import com.example.thenews.news.newsList.NewsListAction.OnClickNew
 import com.example.thenews.news.newsList.NewsListAction.SearchNews
 import com.example.thenews.news.newsList.NewsListState.Loading
 import com.example.thenews.news.newsList.NewsListState.Success
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 @HiltViewModel
@@ -20,6 +24,8 @@ class NewsListVM @Inject constructor(
 ) : ViewModel() {
 
     val state = MutableStateFlow<NewsListState>(Loading)
+    private val _effect = Channel<NewListEffect>()
+    val effect = _effect.receiveAsFlow()
     private var search: String = "Кино"
 
     fun doAction(action: NewsListAction) {
@@ -29,6 +35,8 @@ class NewsListVM @Inject constructor(
                 search = action.searchQuery
                 fetchNewsList()
             }
+
+            is OnClickNew -> toNavigate(action.new)
 
             is OnClickFavourite -> {
                 search = action.searchQuery
@@ -47,6 +55,10 @@ class NewsListVM @Inject constructor(
                 state.value = NewsListState.Error(e.message.toString())
             }
         }
+    }
+
+    private fun toNavigate(new: New) {
+        _effect.trySend(ToNavigateContentScreen(new))
     }
 
     private fun addToFavouriteNew(newFavourite: New) {
