@@ -10,6 +10,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.thenews.R
 import com.example.thenews.databinding.FragmentContentBinding
 import com.example.thenews.model.presentation.New
@@ -33,6 +34,9 @@ class ContentFragment : Fragment(R.layout.fragment_content) {
         vm.doAction(InitScreen)
         val args = arguments?.getParcelable<New>(NEW_KEY)!!
         binding.titleNew.text = args.title
+        Glide.with(binding.imageNew).load(args.image).into(binding.imageNew)
+        binding.descriptionNew.text = "    " + args.description
+        binding.urlNew.text = args.url
 
         return binding.root
     }

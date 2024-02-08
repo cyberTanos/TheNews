@@ -12,6 +12,8 @@ object Mapper {
             New(
                 title = resp.title,
                 image = resp.urlToImage.toString(),
+                description = resp.description,
+                url = resp.url,
                 isFavourite = isFavourite
             )
         }
@@ -22,6 +24,8 @@ object Mapper {
             New(
                 title = it.title,
                 image = it.image,
+                description = it.description,
+                url = it.url,
                 isFavourite = it.isFavourite
             )
         }
@@ -31,6 +35,8 @@ object Mapper {
         return NewEntity(
             title = new.title,
             image = new.image,
+            description = new.description,
+            url = new.url,
             isFavourite = new.isFavourite
         )
     }

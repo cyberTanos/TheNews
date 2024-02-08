@@ -5,8 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.thenews.domain.NewsListRepository
 import com.example.thenews.model.presentation.New
 import com.example.thenews.news.newsList.NewListEffect.ToNavigateContentScreen
+import com.example.thenews.news.newsList.NewsListAction.AddToFavourite
+import com.example.thenews.news.newsList.NewsListAction.DeleteFromFavourite
 import com.example.thenews.news.newsList.NewsListAction.InitScreen
-import com.example.thenews.news.newsList.NewsListAction.OnClickFavourite
 import com.example.thenews.news.newsList.NewsListAction.OnClickNew
 import com.example.thenews.news.newsList.NewsListAction.SearchNews
 import com.example.thenews.news.newsList.NewsListState.Loading
@@ -37,10 +38,14 @@ class NewsListVM @Inject constructor(
             }
 
             is OnClickNew -> toNavigate(action.new)
-
-            is OnClickFavourite -> {
+            is AddToFavourite -> {
                 search = action.searchQuery
                 addToFavouriteNew(action.favouriteNew)
+            }
+
+            is DeleteFromFavourite -> {
+                search = action.searchQuery
+                deleteFromFavourite(action.favouriteNew)
             }
         }
     }
@@ -65,6 +70,15 @@ class NewsListVM @Inject constructor(
         viewModelScope.launch {
             val checkedQuery = search.ifEmpty { "Кино" }
             repository.addToFavourite(newFavourite)
+            val news = repository.getNews(checkedQuery)
+            state.value = Success(news)
+        }
+    }
+
+    private fun deleteFromFavourite(newFavourite: New) {
+        viewModelScope.launch {
+            val checkedQuery = search.ifEmpty { "Кино" }
+            repository.deleteFavNew(newFavourite)
             val news = repository.getNews(checkedQuery)
             state.value = Success(news)
         }
