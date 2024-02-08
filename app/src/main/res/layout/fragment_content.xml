@@ -40,20 +40,45 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
+        android:padding="6dp"
+        android:textAlignment="center"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        tools:text="Title New" />
+        tools:text="Дом мечты для вашей семьи" />
+
+    <ImageView
+        android:id="@+id/imageNew"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleNew"
+        tools:background="@color/black" />
 
     <TextView
         android:id="@+id/descriptionNew"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="6dp"
-        app:layout_constraintEnd_toEndOf="@+id/titleNew"
-        app:layout_constraintStart_toStartOf="@+id/titleNew"
-        app:layout_constraintTop_toBottomOf="@id/titleNew"
-        tools:text="Text text text" />
+        android:padding="6dp"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageNew"
+        tools:text="После того, как все выспались в январские праздники, мы совместно с DC Shoes и Денисом Бонусом организавали очень горячее мероприятие, не смотря на -25 по термометру, участники показали высокий уровень техники и стиля в джиббинге. Смотрим, вспоминаем.
+" />
+
+    <TextView
+        android:id="@+id/urlNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="6dp"
+        app:layout_constraintEnd_toEndOf="@+id/descriptionNew"
+        app:layout_constraintStart_toStartOf="@+id/descriptionNew"
+        app:layout_constraintTop_toBottomOf="@id/descriptionNew"
+        tools:text="https://simmetr93.ru/?utm_source=ia_yandexutm_medium=contextutm_campaign=Общие_РСЯutm_content=kottedzhnyi_posyolok_domutm_term" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

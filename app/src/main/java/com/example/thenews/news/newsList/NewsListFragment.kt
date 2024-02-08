@@ -16,8 +16,9 @@ import com.example.thenews.R
 import com.example.thenews.databinding.FragmentNewsListBinding
 import com.example.thenews.news.content.ContentFragment.Companion.NEW_KEY
 import com.example.thenews.news.newsList.NewListEffect.ToNavigateContentScreen
+import com.example.thenews.news.newsList.NewsListAction.AddToFavourite
+import com.example.thenews.news.newsList.NewsListAction.DeleteFromFavourite
 import com.example.thenews.news.newsList.NewsListAction.InitScreen
-import com.example.thenews.news.newsList.NewsListAction.OnClickFavourite
 import com.example.thenews.news.newsList.NewsListAction.OnClickNew
 import com.example.thenews.news.newsList.NewsListAction.SearchNews
 import com.example.thenews.news.newsList.NewsListState.Error
@@ -35,8 +36,11 @@ class NewsListFragment : Fragment(R.layout.fragment_news_list) {
         onClickNew = { new ->
             vm.doAction(OnClickNew(new))
         },
-        onClickFavourite = { new ->
-            vm.doAction(OnClickFavourite(new, binding.searchNews.text.toString()))
+        addToFavourite = { new ->
+            vm.doAction(AddToFavourite(new, binding.searchNews.text.toString()))
+        },
+        deleteFromFavourite = { new ->
+            vm.doAction(DeleteFromFavourite(new, binding.searchNews.text.toString()))
         }
     )
 
@@ -81,8 +85,9 @@ class NewsListFragment : Fragment(R.layout.fragment_news_list) {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                 vm.effect.collect { effect ->
                     when (effect) {
-                        is ToNavigateContentScreen -> findNavController().navigate(R.id.to_contentFragment,
-                            bundleOf(NEW_KEY to effect.new )
+                        is ToNavigateContentScreen -> findNavController().navigate(
+                            R.id.to_contentFragment,
+                            bundleOf(NEW_KEY to effect.new)
                         )
                     }
                 }

@@ -7,5 +7,7 @@ import androidx.room.PrimaryKey
 data class NewEntity(
     @PrimaryKey val title: String,
     val image: String,
+    val description: String,
+    val url: String,
     val isFavourite: Boolean = false
 )

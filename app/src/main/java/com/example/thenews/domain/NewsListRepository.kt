@@ -16,9 +16,8 @@ class NewsListRepository @Inject constructor(
         return Mapper.mapToNews(newsResponse, newsEntity)
     }
 
-    suspend fun addToFavourite(new: New): List<New> {
+    suspend fun addToFavourite(new: New) {
         dao.insertOne(Mapper.map(new))
-        return Mapper.map(dao.getAll())
     }
 
     suspend fun getFavouritesNews(): List<New> {

@@ -11,8 +11,11 @@ import com.example.thenews.databinding.ItemNewBinding
 import com.example.thenews.model.presentation.New
 import com.example.thenews.news.newsList.NewsListAdapter.NewsVH
 
-class NewsListAdapter(private val onClickNew: (New) -> Unit, private val onClickFavourite: (New) -> Unit) :
-    ListAdapter<New, NewsVH>(Differ) {
+class NewsListAdapter(
+    private val onClickNew: (New) -> Unit,
+    private val addToFavourite: (New) -> Unit,
+    private val deleteFromFavourite: (New) -> Unit
+) : ListAdapter<New, NewsVH>(Differ) {
 
     inner class NewsVH(private val binding: ItemNewBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -30,7 +33,11 @@ class NewsListAdapter(private val onClickNew: (New) -> Unit, private val onClick
                 onClickNew.invoke(new)
             }
             binding.favouriteButton.setOnClickListener {
-                onClickFavourite.invoke(new)
+                if (new.isFavourite) {
+                    deleteFromFavourite.invoke(new)
+                } else {
+                    addToFavourite.invoke(new)
+                }
             }
         }
     }

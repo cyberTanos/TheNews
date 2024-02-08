@@ -7,5 +7,7 @@ import kotlinx.parcelize.Parcelize
 data class New(
     val title: String,
     val image: String,
+    val description: String,
+    val url: String,
     val isFavourite: Boolean
 ) : Parcelable
